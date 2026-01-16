@@ -521,6 +521,130 @@ body {
   color: #ffffff !important;
 }
 
+
+/* ================= MOBILE RESPONSIVE ================= */
+
+/* Tablet and small desktops */
+@media screen and (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile tablets and large phones */
+@media screen and (max-width: 768px) {
+  /* Layout changes */
+  .main-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    border-right: none;
+    box-shadow: none;
+    padding: 15px;
+  }
+
+  .content-area {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+  }
+
+  /* Stats grid and cards */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .chart-container.large {
+    grid-column: span 1;
+  }
+
+  .navbar ul li a {
+    font-size: 12px;
+    margin-left: 10px;
+  }
+
+  .stat-card .stat-value {
+    font-size: 1.5rem !important;
+  }
+
+  /* Contact Section */
+  .hero-contact {
+    flex-direction: column;
+    padding: 15px;
+    gap: 20px;
+  }
+
+  .hero-left-contact {
+    padding-right: 0;
+    text-align: center;
+  }
+
+  .hero-image-container {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+  }
+
+  .glow-line-contact {
+    width: 100%;
+  }
+
+  .dev-description {
+    font-size: 0.9rem;
+  }
+
+  .contact-details {
+    font-size: 0.9rem;
+    align-items: center;
+  }
+
+  .contact-details-row {
+    flex-direction: column;
+  }
+}
+
+/* Small phones */
+@media screen and (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #dev-title {
+    font-size: 20px;
+  }
+
+  .hero-image-container {
+    width: 150px;
+    height: 150px;
+  }
+
+  .stat-card .stat-value {
+    font-size: 1.2rem !important;
+  }
+
+  .navbar ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .navbar ul li a {
+    margin-left: 8px;
+    font-size: 11px;
+  }
+}
+
+
 .stat-card .stat-title {
   color: #f5d76e !important;
 }
+
