@@ -367,3 +367,123 @@ body {
   bottom: 0;
   left: 0;
 }
+
+/* ================= MOBILE RESPONSIVE FOR CONTACT SECTION ================= */
+
+/* Tablet / small desktops */
+@media screen and (max-width: 1024px) {
+  .hero-contact {
+    padding: 15px 30px;
+  }
+
+  #dev-title {
+    font-size: 22px;
+  }
+
+  .glow-line-contact {
+    width: 100%;
+  }
+
+  .dev-description {
+    font-size: 0.95rem;
+  }
+
+  .hero-image-container {
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+  }
+
+  .contact-details {
+    font-size: 24px;
+  }
+}
+
+/* Mobile tablets and large phones */
+@media screen and (max-width: 768px) {
+  /* Stack left and right sections vertically */
+  .hero-contact {
+    flex-direction: column;
+    padding: 15px;
+    gap: 20px;
+    margin: 10px;
+    align-items: center;
+  }
+
+  .hero-left-contact {
+    flex: 1;
+    padding-right: 0;
+    text-align: center;
+  }
+
+  #dev-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .glow-line-contact {
+    width: 100%;
+  }
+
+  .dev-description {
+    font-size: 0.9rem;
+    margin: 15px 0;
+  }
+
+  .hero-image-container {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+  }
+
+  .contact-details {
+    font-size: 20px;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .contact-details-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-details-row .contact-item {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Small phones */
+@media screen and (max-width: 480px) {
+  #dev-title {
+    font-size: 18px;
+  }
+
+  .hero-image-container {
+    width: 150px;
+    height: 150px;
+  }
+
+  .dev-description {
+    font-size: 0.85rem;
+    margin: 10px 0;
+  }
+
+  .contact-details {
+    font-size: 18px;
+  }
+
+  .contact-item {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .contact-item i {
+    font-size: 20px;
+  }
+
+  .portfolio-link {
+    font-size: 14px;
+  }
+}
+
