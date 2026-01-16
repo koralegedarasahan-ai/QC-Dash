@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QC Quality Control Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      /* --- Stat Card Customization --- */
+      .stat-card {
+        position: relative;
+        overflow: hidden;
+        min-height: 100px;
+        padding: 10px 15px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+
+      .stat-title {
+        font-size: 0.9rem;
+        color: #2c3e50;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+
+      .stat-line {
+        width: 35px;
+        height: 3px;
+        background: #27ae60;
+        border-radius: 2px;
+        box-shadow: 0 0 8px #27ae60;
+        margin-bottom: 8px;
+      }
+
+      .stat-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .stat-icon {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        pointer-events: none;
+      }
+
+      .stat-value {
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: #34495e;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ===== Navbar ===== -->
+    <nav class="navbar">
+      <div class="logo">QC Analytics Hub</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="developer.html">Developer</a></li>
+      </ul>
+    </nav>
+
+    <!-- ===== Main Container ===== -->
+    <div class="main-container">
+      <!-- ===== Sidebar ===== -->
+      <aside class="sidebar">
+        <div class="section-title">Data Control Panel</div>
+
+        <div class="upload-box glow-box">
+          <label for="file-upload" class="custom-file-upload">
+            Upload Data Set
+          </label>
+          <input id="file-upload" type="file" />
+        </div>
+
+        <div class="filters">
+          <h3>Global Filters</h3>
+
+          <!-- Batch Range -->
+          <div class="filter-group">
+            <label>Batch Day</label>
+            <input type="range" min="1" max="7" value="50" />
+            <span class="filter-hint">Week day 1 to day 7</span>
+          </div>
+
+          <!-- Production Line -->
+          <div class="filter-group">
+            <label>Production Line</label>
+            <select>
+              <option>Line A (Sample)</option>
+              <option>Line B (Sample)</option>
+              <option>Line C (Sample)</option>
+            </select>
+          </div>
+
+          <!-- Shift Period -->
+          <div class="filter-group">
+            <label>Shift Period</label>
+            <select>
+              <option>Day Shift</option>
+              <option>Night Shift</option>
+            </select>
+          </div>
+
+          <button class="apply-btn">Apply Filters</button>
+        </div>
+      </aside>
+
+      <!-- ===== Content Area ===== -->
+      <main class="content-area">
+        <!-- ===== Stat Cards ===== -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <p class="stat-title">Yield Rate</p>
+            <div class="stat-line"></div>
+            <div class="stat-content">
+              <img src="image/1.gif" class="stat-icon" alt="Yield Rate" />
+              <p class="stat-value">98.2%</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <p class="stat-title">Defect Rate</p>
+            <div class="stat-line"></div>
+            <div class="stat-content">
+              <img src="image/2.gif" class="stat-icon" alt="Defect Rate" />
+              <p class="stat-value">1.8%</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <p class="stat-title">OEE</p>
+            <div class="stat-line"></div>
+            <div class="stat-content">
+              <img src="image/3.gif" class="stat-icon" alt="OEE" />
+              <p class="stat-value">85.4%</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <p class="stat-title">Availability</p>
+            <div class="stat-line"></div>
+            <div class="stat-content">
+              <img src="image/4.gif" class="stat-icon" alt="Availability" />
+              <p class="stat-value">92%</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <p class="stat-title">Performance</p>
+            <div class="stat-line"></div>
+            <div class="stat-content">
+              <img src="image/5.gif" class="stat-icon" alt="Performance" />
+              <p class="stat-value">88%</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <p class="stat-title">MTBF</p>
+            <div class="stat-line"></div>
+            <div class="stat-content">
+              <img src="image/6.gif" class="stat-icon" alt="MTBF" />
+              <p class="stat-value">120h</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Charts ===== -->
+        <div class="charts-grid">
+          <div class="chart-container large">
+            <div class="chart-header">
+              <h3>Control Chart (SPC)</h3>
+              <select id="spcType">
+                <option value="xbar">X-Bar Chart</option>
+                <option value="rchart">R-Chart</option>
+                <option value="cchart">C-Chart</option>
+              </select>
+            </div>
+            <canvas id="chart1"></canvas>
+          </div>
+
+          <div class="chart-container">
+            <h3>Pareto Analysis</h3>
+            <canvas id="chart2"></canvas>
+          </div>
+
+          <div class="chart-container">
+            <h3>Process Capability (CpK)</h3>
+            <canvas id="chart3"></canvas>
+          </div>
+
+          <div class="chart-container">
+            <h3>Defect Distribution</h3>
+            <canvas id="chart4"></canvas>
+          </div>
+
+          <div class="chart-container">
+            <h3>R-Chart (Range)</h3>
+            <canvas id="chart5"></canvas>
+            <p class="chart-desc">
+              The R-Chart (Range) is used to monitor process variability within subgroups.
+              It tracks the difference between the highest and lowest values in each subgroup,
+              helping identify shifts, trends, or abnormal fluctuations in the production process.
+              By highlighting increases in variation, it allows timely corrective actions to maintain consistent quality.
+              <ul style="margin-top:6px; margin-left:16px; color:#cfcfcf; font-size:0.9rem;">
+                <li>Tracks the difference between the highest and lowest values in each subgroup.</li>
+                <li>Detects shifts, trends, or abnormal fluctuations in the production process.</li>
+                <li>Highlights increases in variability that may indicate quality issues.</li>
+                <li>Enables timely corrective actions to maintain stable and consistent output.</li>
+              </ul>
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <h3>Sigma Levels</h3>
+            <canvas id="chart6"></canvas>
+          </div>
+
+          <div class="chart-container">
+            <h3>Production Trend</h3>
+            <canvas id="chart7"></canvas>
+            <p class="chart-desc">
+              The production trend chart illustrates the total units produced over a defined time period, offering a comprehensive view of overall production performance. It allows managers and team members to monitor output levels in real time, helping detect fluctuations, delays, or sudden increases in production. By highlighting patterns and trends, the chart makes it easier to identify periods of high efficiency or potential bottlenecks in the workflow. It also serves as a valuable tool for comparing performance across different shifts, departments, or production lines. Ultimately, the chart supports strategic decision-making by providing actionable insights to optimize operations and improve overall productivity.
+              <ul style="margin-top:6px; margin-left:16px; color:#cfcfcf; font-size:0.9rem;">
+                <li>Shows the total units produced in each time period (e.g., daily, weekly).</li>
+                <li>Highlights production trends, peaks, and dips for better planning.</li>
+                <li>Detects deviations from expected production patterns.</li>
+                <li>Supports timely decision-making to optimize output and resources.</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ===== Chart Focus Overlay ===== -->
+    <div id="chart-focus-overlay">
+      <div class="chart-focus-wrapper">
+        <div class="chart-focus-main"></div>
+
+        <div class="chart-focus-desc">
+          <button class="close-focus">✕</button>
+          <h2 id="focus-title"></h2>
+          <p id="focus-description">
+            This chart provides deeper insight into the selected quality metric.
+            Use this view to analyze trends, variability, and performance indicators
+            without distractions from other dashboard elements.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Scripts ===== -->
+    <script src="script.js"></script>
+
+    <script>
+      // Highlight current navbar link
+      const navbarLinks = document.querySelectorAll(".navbar ul li a");
+      navbarLinks.forEach((link) => {
+        if (window.location.pathname.includes(link.getAttribute("href"))) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    </script>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+      <p>&copy; 2026 QC Analytics Hub. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

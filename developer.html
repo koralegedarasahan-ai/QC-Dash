@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QC Quality Control Dashboard</title>
+    <link rel="stylesheet" href="contact.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- ===== Navbar ===== -->
+    <nav class="navbar">
+      <div class="logo">QC Analytics Hub</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="developer.html">Developer</a></li>
+      </ul>
+    </nav>
+
+    <!-- ===== Hero Section: Meet the Developer ===== -->
+    <section class="hero-contact">
+      <div class="hero-left-contact">
+        <h1 id="dev-title">Meet the Developer</h1>
+        <div class="glow-line-contact"></div>
+
+        <!-- Hero description -->
+        <p class="dev-description">
+          Hey there! <br />
+          My name is <strong>Sahan</strong>, and I'm the creator of
+          <strong>QC Analytics Hub</strong> — a platform where data, analysis,
+          and visualization come together to make monitoring and improving
+          production processes intuitive and insightful. Every chart, statistic,
+          and interactive element is carefully designed to guide you through
+          your quality control journey, helping you detect trends, spot
+          anomalies, and make data-driven decisions with confidence. With QC
+          Analytics Hub, you can explore real-time dashboards, analyze key
+          performance indicators, and gain a deeper understanding of your
+          operations. My goal is to make complex data accessible, actionable,
+          and even a little magical. Let's dive in, explore the metrics, and
+          turn data into meaningful insights together!
+        </p>
+
+        <!-- Contact info -->
+        <div class="contact-details">
+          <div class="contact-item">
+            <i class="fas fa-globe"></i>
+            <p>
+              <strong>Portfolio:</strong> Know about me! Click here:
+              <a
+                href="https://koralegedarasahan-ai.github.io/Portfolio/"
+                target="_blank"
+                class="portfolio-link"
+              >
+                Sahan_Portfolio
+              </a>
+            </p>
+          </div>
+
+          <div class="contact-details-row">
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <p>
+                <strong>Email:</strong>
+                <a href="mailto:sahankoralegedara.vck@gmail.com">
+                  sahankoralegedara.vck@gmail.com
+                </a>
+              </p>
+            </div>
+
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <p>
+                <strong>Phone:</strong>
+                <a href="tel:+94768520412">+94 768520412</a> /
+                <a href="tel:+94759072712">+94 759072712</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image-container">
+        <div class="glow-circle"></div>
+        <img src="image/s1.jpg" class="hero-image" alt="Developer Image" />
+      </div>
+    </section>
+
+    <!-- ===== Fade-in / Fade-out Page Transition ===== -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.classList.add("fade-in");
+      });
+
+      document.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          const href = link.getAttribute("href");
+          if (href && !href.startsWith("#") && !link.target) {
+            e.preventDefault();
+            document.body.classList.remove("fade-in");
+            document.body.style.opacity = "0";
+            setTimeout(() => {
+              window.location.href = href;
+            }, 500);
+          }
+        });
+      });
+    </script>
+
+    <!-- ===== Script.js ===== -->
+    <script src="script.js"></script>
+
+    <!-- ===== Highlight Navbar Link ===== -->
+    <script>
+      const navbarLinks = document.querySelectorAll(".navbar ul li a");
+      navbarLinks.forEach((link) => {
+        if (window.location.pathname.includes(link.getAttribute("href"))) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    </script>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+      <p>&copy; 2026 QC Analytics Hub. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

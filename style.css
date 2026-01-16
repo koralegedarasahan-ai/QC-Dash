@@ -1,0 +1,526 @@
+/* ================= GLOBAL ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #3f3f3f, #1e1e1e);
+  overflow-x: hidden;
+  max-width: 100vw;
+  color: #e0e0e0;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  height: 50px;
+  background: linear-gradient(90deg, #111111, #2b2b2b, #1a1a1a);
+  color: #e6d9a3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #7c6a2d;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+}
+
+/* ================= NAVBAR LINKS ================= */
+.navbar ul li a {
+  position: relative;
+  color: #c9c9c9;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 14px;
+  padding-bottom: 6px;
+  transition: color 0.3s ease;
+}
+
+/* underline */
+.navbar ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #f5d76e, #9e8430);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  border-radius: 2px;
+}
+
+/* hover underline */
+.navbar ul li a:hover::after {
+  transform: scaleX(1);
+}
+
+/* hover text */
+.navbar ul li a:hover {
+  color: #f5d76e;
+}
+
+/* active tab underline (Home / Developer etc.) */
+.navbar ul li a.active::after {
+  transform: scaleX(1);
+}
+
+/* active tab text */
+.navbar ul li a.active {
+  color: #f5d76e;
+}
+
+/* ================= LAYOUT ================= */
+.main-container {
+  display: flex;
+  width: 100%;
+}
+
+.sidebar {
+  width: 20%;
+  background: linear-gradient(90deg, #111111, #2b2b2b, #1a1a1a);
+  padding: 20px;
+  height: calc(100vh - 60px);
+  position: sticky;
+  top: 60px;
+  border-right: 1px solid #5c5125;
+  box-shadow: 6px rgba(0, 0, 0, 0.8);
+}
+
+.sidebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.content-area {
+  width: 80%;
+  padding: 20px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ================= STATS GRID ================= */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+/* ================= STAT CARD ================= */
+.stat-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 110px;
+  padding: 14px 16px;
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px #7c6a2d, 0 8px 18px rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-card .stat-title {
+  font-size: 0.95rem !important;
+  color: #f5d76e;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+
+.stat-card .stat-line {
+  width: 130px;
+  height: 2px;
+  background: linear-gradient(90deg, #f5d76e, #9e8430);
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(245, 215, 110, 0.9), 0 0 14px rgba(158, 132, 48, 0.8);
+  margin-bottom: 12px;
+}
+
+.stat-card .stat-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-card .stat-video {
+  width: 40px;
+  height: 40px;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 6px rgba(245, 215, 110, 0.8))
+    drop-shadow(0 0 12px rgba(158, 132, 48, 0.6));
+  pointer-events: none;
+}
+
+.stat-card .stat-value {
+  font-size: 2rem !important;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(245, 215, 110, 0.8),
+    0 0 16px rgba(158, 132, 48, 0.7);
+  margin: 0;
+}
+
+/* ================= CHARTS ================= */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.chart-container {
+  background: linear-gradient(145deg, #242424, #161616);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px #7c6a2d, 0 8px 18px rgba(0, 0, 0, 0.85);
+}
+
+.large {
+  grid-column: span 2;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  color: #f5d76e;
+}
+
+.chart-desc {
+  font-size: 0.9rem;
+  color: #cfcfcf;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #7c6a2d;
+}
+
+/* ================= CONTROLS ================= */
+.upload-box {
+  border: 2px dashed #9e8430;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background: linear-gradient(145deg, #1f1f1f, #141414);
+  color: #e6d9a3;
+}
+
+.apply-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #9e8430, #f5d76e);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.apply-btn:hover {
+  background: linear-gradient(90deg, #f5d76e, #c9a227);
+}
+
+#spcType {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #9e8430;
+  background: #1f1f1f;
+  color: #f5d76e;
+}
+
+/* ================= SIDEBAR ENHANCEMENTS ================= */
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f5d76e;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #7c6a2d;
+  padding-bottom: 8px;
+}
+
+.filters h3 {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.filter-group {
+  background: linear-gradient(145deg, #222222, #161616);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  box-shadow: inset 0 0 0 1px #7c6a2d;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.filter-group:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 14px rgba(245, 215, 110, 0.35);
+}
+
+.filter-group label {
+  font-size: 0.8rem;
+  color: #ffffff;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.filter-group input[type="range"],
+.filter-group select {
+  width: 100%;
+  background: #1f1f1f;
+  border: 1px solid #9e8430;
+  border-radius: 6px;
+  padding: 6px;
+  color: #f5d76e;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #dcdcdc;
+  font-size: 0.8rem;
+  margin-top: 6px;
+}
+
+.filter-hint {
+  font-size: 0.7rem;
+  color: #bfae6a;
+  margin-top: 4px;
+  display: block;
+  opacity: 0.85;
+}
+
+.custom-file-upload {
+  cursor: pointer;
+  font-weight: 600;
+  color: #f5d76e;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+  background: linear-gradient(90deg, #111111, #2b2b2b, #1a1a1a);
+  color: #e6d9a3; /* golden text */
+  text-align: center;
+  padding: 1px 0;
+  font-size: 0.8rem;
+  border-top: 1px solid #7c6a2d;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.5);
+  position: relative; /* keeps it in normal flow */
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Optional: Sticky Footer (always at bottom) */
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+/* ================= CHART FOCUS MODE ================= */
+
+#chart-focus-overlay {
+  position: fixed;
+  inset: 50px 0 30px 0; /* between navbar & footer */
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#chart-focus-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+.chart-focus-wrapper {
+  display: flex;
+  height: 100%;
+  gap: 20px;
+  padding: 20px;
+}
+
+.chart-focus-main {
+  flex: 2;
+  background: linear-gradient(145deg, #242424, #161616);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+  animation: scaleIn 0.45s ease;
+}
+
+.chart-focus-desc {
+  flex: 1;
+  background: linear-gradient(145deg, #1f1f1f, #121212);
+  border-radius: 14px;
+  padding: 20px;
+  color: #e6d9a3;
+  box-shadow: inset 0 0 0 1px #7c6a2d;
+  animation: slideIn 0.45s ease;
+  position: relative;
+}
+
+.chart-focus-desc h2 {
+  color: #f5d76e;
+  margin-bottom: 10px;
+}
+
+.chart-focus-desc p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.close-focus {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #f5d76e;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.close-focus:hover {
+  transform: scale(1.2);
+}
+
+/* Blur background elements */
+.blur-dashboard {
+  filter: blur(6px);
+  opacity: 0.4;
+  transition: all 0.4s ease;
+}
+
+/* Animations */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ===== Fix chart sizing in focus mode ===== */
+
+.chart-focus-main canvas,
+.chart-focus-main img {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.chart-focus-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================= TITLE INLINE LIVE HINT ================= */
+
+/* ================= LIVE CLICK-TO-VIEW LABEL ================= */
+
+.chart-container {
+  position: relative;
+}
+
+.chart-live-hint {
+  position: absolute;
+  top: 20px;
+  left: 400px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #f5d76e;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: liveHintPulse 5s infinite;
+}
+
+/* Live dot */
+.chart-live-hint::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #ff4d4d;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ff4d4d;
+}
+
+/* Animation */
+@keyframes liveHintPulse {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* FIX: Force specific dark background on reload */
+.stat-card {
+  background-color: #353535 !important; /* Solid fallback */
+  background: linear-gradient(
+    145deg,
+    #242424,
+    #161616
+  ) !important; /* Your requested color */
+}
+
+/* Ensure text doesn't inherit browser default black on reload */
+.stat-card .stat-value {
+  color: #ffffff !important;
+}
+
+.stat-card .stat-title {
+  color: #f5d76e !important;
+}
