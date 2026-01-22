@@ -25,7 +25,7 @@ const measurement80 = [
 ]; // ← EXACTLY 80 values
 
 const spcCtx = document.getElementById("chart1").getContext("2d");
-new Chart(spcCtx, {
+const spcChart = new Chart(spcCtx, {
   type: "line",
   data: {
     labels: labels80,
@@ -63,10 +63,10 @@ new Chart(spcCtx, {
 new Chart(document.getElementById("chart2"), {
   type: "bar",
   data: {
-    labels: labels40,
+    labels: labels80,
     datasets: [
       {
-        data: Array.from({ length: 40 }, () => Math.floor(Math.random() * 50)),
+        data: Array.from({ length: 80 }, () => Math.floor(Math.random() * 50)),
         backgroundColor: "#e67e22",
       },
     ],
@@ -80,10 +80,10 @@ new Chart(document.getElementById("chart2"), {
 new Chart(document.getElementById("chart3"), {
   type: "bar",
   data: {
-    labels: labels40,
+    labels: labels80,
     datasets: [
       {
-        data: Array.from({ length: 40 }, () => +(1 + Math.random()).toFixed(2)),
+        data: Array.from({ length: 80 }, () => +(1 + Math.random()).toFixed(2)),
         backgroundColor: "#27ae60",
       },
     ],
@@ -118,11 +118,11 @@ new Chart(document.getElementById("chart4"), {
 new Chart(document.getElementById("chart5"), {
   type: "line",
   data: {
-    labels: labels40,
+    labels: labels80,
     datasets: [
       {
         data: Array.from(
-          { length: 40 },
+          { length: 80 },
           () => +(Math.random() * 0.5).toFixed(2)
         ),
         borderColor: "#9b59b6",
@@ -156,10 +156,10 @@ new Chart(document.getElementById("chart6"), {
 new Chart(document.getElementById("chart7"), {
   type: "line",
   data: {
-    labels: labels40,
+    labels: labels80,
     datasets: [
       {
-        data: Array.from({ length: 40 }, () =>
+        data: Array.from({ length: 80 }, () =>
           Math.floor(400 + Math.random() * 500)
         ),
         fill: true,
@@ -201,6 +201,14 @@ closeBtn.addEventListener("click", () => {
   overlay.classList.remove("active");
   document.querySelector(".main-container").classList.remove("blur-dashboard");
 });
+
+// FIX: Prevent focus mode when clicking the SPC dropdown
+const spcSelect = document.getElementById("spcType");
+if (spcSelect) {
+  spcSelect.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+}
 
 // =========================
 // FIX: Chart rendering in focus mode
@@ -273,7 +281,7 @@ document
 const QC_DATA = {};
 
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const lines = ["Line A", "Line B", "Line C"];
+const lines = ["Line A (Sample)", "Line B (Sample)", "Line C (Sample)"];
 const shifts = ["Day Shift", "Night Shift"];
 
 days.forEach((day) => {
@@ -283,24 +291,20 @@ days.forEach((day) => {
     shifts.forEach((shift) => {
       QC_DATA[day][line][shift] = {
         spc: Array.from(
-          { length: 10 },
+          { length: 80 },
           () => +(9.5 + Math.random() * 1.5).toFixed(2)
         ),
-        pareto: [
-          Math.floor(Math.random() * 50),
-          Math.floor(Math.random() * 40),
-          Math.floor(Math.random() * 30),
-          Math.floor(Math.random() * 20),
-          Math.floor(Math.random() * 10),
-        ],
-        cpk: +(1 + Math.random()).toFixed(2),
+        pareto: Array.from({ length: 80 }, () =>
+          Math.floor(Math.random() * 50)
+        ),
+        cpk: Array.from({ length: 80 }, () => +(1 + Math.random()).toFixed(2)),
         defectSplit: [
           Math.floor(70 + Math.random() * 15),
           Math.floor(5 + Math.random() * 15),
           Math.floor(2 + Math.random() * 8),
         ],
         rChart: Array.from(
-          { length: 10 },
+          { length: 80 },
           () => +(Math.random() * 0.6).toFixed(2)
         ),
         sigma: [
@@ -308,9 +312,17 @@ days.forEach((day) => {
           +(3.5 + Math.random() * 1.5).toFixed(1),
           +(3.5 + Math.random() * 1.5).toFixed(1),
         ],
-        production: Array.from({ length: 5 }, () =>
+        production: Array.from({ length: 80 }, () =>
           Math.floor(450 + Math.random() * 400)
         ),
+        kpiValues: {
+          yield: (95 + Math.random() * 4).toFixed(1) + "%",
+          defect: (1 + Math.random() * 2).toFixed(1) + "%",
+          oee: Math.floor(80 + Math.random() * 15) + "%",
+          availability: Math.floor(85 + Math.random() * 10) + "%",
+          performance: Math.floor(85 + Math.random() * 10) + "%",
+          mtbf: Math.floor(100 + Math.random() * 50) + "h",
+        },
       };
     });
   });
@@ -335,7 +347,7 @@ document.querySelector(".apply-btn").addEventListener("click", () => {
   chart2.data.datasets[0].data = data.pareto;
   chart2.update("active");
 
-  chart3.data.datasets[0].data = [data.cpk];
+  chart3.data.datasets[0].data = data.cpk;
   chart3.update("active");
 
   chart4.data.datasets[0].data = data.defectSplit;
@@ -349,6 +361,14 @@ document.querySelector(".apply-btn").addEventListener("click", () => {
 
   chart7.data.datasets[0].data = data.production;
   chart7.update("active");
+
+  // Update KPI Cards
+  animateKPI("kpi-yield", data.kpiValues.yield);
+  animateKPI("kpi-defect", data.kpiValues.defect);
+  animateKPI("kpi-oee", data.kpiValues.oee);
+  animateKPI("kpi-availability", data.kpiValues.availability);
+  animateKPI("kpi-performance", data.kpiValues.performance);
+  animateKPI("kpi-mtbf", data.kpiValues.mtbf);
 });
 
 // =========================
@@ -357,6 +377,49 @@ document.querySelector(".apply-btn").addEventListener("click", () => {
 function updateChart(chart, newData) {
   chart.data.datasets[0].data = newData;
   chart.update("active");
+}
+
+// =========================
+// KPI Value Animation Helper
+// =========================
+function animateKPI(id, endValueString) {
+  const element = document.getElementById(id);
+  if (!element) return;
+
+  // 1. Parse suffix (%, h, or empty)
+  const suffix = endValueString.replace(/[0-9.]/g, "");
+  
+  // 2. Parse numeric value
+  const endValue = parseFloat(endValueString);
+  const startValue = parseFloat(element.textContent) || 0; // Fallback to 0 if NaN
+
+  // 3. Animation settings
+  const duration = 1000; // ms
+  const frameRate = 60; 
+  const totalFrames = Math.round((duration / 1000) * frameRate);
+  let frame = 0;
+
+  const counter = setInterval(() => {
+    frame++;
+    // Easing function (easeOutQuad) for smoother effect
+    const progress = frame / totalFrames;
+    const easeProgress = 1 - (1 - progress) * (1 - progress); 
+    
+    const currentValue = startValue + (endValue - startValue) * easeProgress;
+
+    // Formatting: keep 1 decimal if originally had decimal, else int
+    // Heuristic: check if endValueString has a decimal point
+    const hasDecimal = endValueString.includes(".");
+    
+    element.textContent = hasDecimal 
+      ? currentValue.toFixed(1) + suffix 
+      : Math.floor(currentValue) + suffix;
+
+    if (frame >= totalFrames) {
+      clearInterval(counter);
+      element.textContent = endValueString; // Ensure exact final value
+    }
+  }, 1000 / frameRate);
 }
 
 const chart2 = Chart.getChart("chart2");
