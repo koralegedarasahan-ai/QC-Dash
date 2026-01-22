@@ -6,7 +6,7 @@
     <title>QC Quality Control Dashboard</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 
     <style>
       /* --- Stat Card Customization --- */
@@ -66,7 +66,8 @@
     <nav class="navbar">
       <div class="logo">QC Analytics Hub</div>
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="index.html" class="active">Dashboard</a></li>
         <li><a href="developer.html">Developer</a></li>
       </ul>
     </nav>
@@ -126,7 +127,7 @@
             <div class="stat-line"></div>
             <div class="stat-content">
               <img src="image/1.gif" class="stat-icon" alt="Yield Rate" />
-              <p class="stat-value">98.2%</p>
+              <p class="stat-value" id="kpi-yield">98.2%</p>
             </div>
           </div>
 
@@ -135,7 +136,7 @@
             <div class="stat-line"></div>
             <div class="stat-content">
               <img src="image/2.gif" class="stat-icon" alt="Defect Rate" />
-              <p class="stat-value">1.8%</p>
+              <p class="stat-value" id="kpi-defect">1.8%</p>
             </div>
           </div>
 
@@ -144,7 +145,7 @@
             <div class="stat-line"></div>
             <div class="stat-content">
               <img src="image/3.gif" class="stat-icon" alt="OEE" />
-              <p class="stat-value">85.4%</p>
+              <p class="stat-value" id="kpi-oee">85.4%</p>
             </div>
           </div>
 
@@ -153,7 +154,7 @@
             <div class="stat-line"></div>
             <div class="stat-content">
               <img src="image/4.gif" class="stat-icon" alt="Availability" />
-              <p class="stat-value">92%</p>
+              <p class="stat-value" id="kpi-availability">92%</p>
             </div>
           </div>
 
@@ -162,7 +163,7 @@
             <div class="stat-line"></div>
             <div class="stat-content">
               <img src="image/5.gif" class="stat-icon" alt="Performance" />
-              <p class="stat-value">88%</p>
+              <p class="stat-value" id="kpi-performance">88%</p>
             </div>
           </div>
 
@@ -171,7 +172,7 @@
             <div class="stat-line"></div>
             <div class="stat-content">
               <img src="image/6.gif" class="stat-icon" alt="MTBF" />
-              <p class="stat-value">120h</p>
+              <p class="stat-value" id="kpi-mtbf">120h</p>
             </div>
           </div>
         </div>
@@ -208,7 +209,7 @@
           <div class="chart-container">
             <h3>R-Chart (Range)</h3>
             <canvas id="chart5"></canvas>
-            <p class="chart-desc">
+            <div class="chart-desc">
               The R-Chart (Range) is used to monitor process variability within subgroups.
               It tracks the difference between the highest and lowest values in each subgroup,
               helping identify shifts, trends, or abnormal fluctuations in the production process.
@@ -219,7 +220,7 @@
                 <li>Highlights increases in variability that may indicate quality issues.</li>
                 <li>Enables timely corrective actions to maintain stable and consistent output.</li>
               </ul>
-            </p>
+            </div>
           </div>
 
           <div class="chart-container">
@@ -230,7 +231,7 @@
           <div class="chart-container">
             <h3>Production Trend</h3>
             <canvas id="chart7"></canvas>
-            <p class="chart-desc">
+            <div class="chart-desc">
               The production trend chart illustrates the total units produced over a defined time period, offering a comprehensive view of overall production performance. It allows managers and team members to monitor output levels in real time, helping detect fluctuations, delays, or sudden increases in production. By highlighting patterns and trends, the chart makes it easier to identify periods of high efficiency or potential bottlenecks in the workflow. It also serves as a valuable tool for comparing performance across different shifts, departments, or production lines. Ultimately, the chart supports strategic decision-making by providing actionable insights to optimize operations and improve overall productivity.
               <ul style="margin-top:6px; margin-left:16px; color:#cfcfcf; font-size:0.9rem;">
                 <li>Shows the total units produced in each time period (e.g., daily, weekly).</li>
@@ -238,7 +239,7 @@
                 <li>Detects deviations from expected production patterns.</li>
                 <li>Supports timely decision-making to optimize output and resources.</li>
               </ul>
-            </p>
+            </div>
           </div>
         </div>
       </main>
@@ -282,4 +283,3 @@
     </footer>
   </body>
 </html>
-
